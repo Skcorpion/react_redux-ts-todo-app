@@ -1,57 +1,74 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.scss";
+import Footer from "./features/footer/Footer";
+import Header from "./features/header/Header";
+import TodoList from "./features/todos/TodoList";
+import storeJS from "store";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { selectTodos, todosReceived } from "./features/todos/todosSlice";
+import { nanoid } from "@reduxjs/toolkit";
+
+function createInitialInstructions(arrOfInstructions: Array<string>) {
+  return arrOfInstructions.map((instruction) => {
+    return {
+      completed: false,
+      date: new Date().toISOString(),
+      edited: false,
+      id: nanoid(),
+      text: instruction,
+    };
+  });
+}
+
+const instructions = [
+  "Завдання можна редагувати",
+  "Є функція вибору всіх завдань",
+  "Дані зберігаються в локальному сховищі",
+  "Все інше очевидно",
+];
 
 function App() {
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector((state) => selectTodos(state));
+
+  const saveStore = () => {
+    storeJS.set("todos", todos);
+  };
+
+  // first mount(with reload) & unmount
+  useEffect(() => {
+    const storedTodos = storeJS.get("todos");
+    if (storedTodos) {
+      dispatch(todosReceived(storedTodos));
+    } else {
+      // On first load show instruction
+      const initialTodos = createInitialInstructions(instructions);
+      dispatch(todosReceived(initialTodos));
+    }
+    return () => {
+      saveStore();
+    };
+  }, []);
+
+  /* update function in addEventListener when todos changes 
+    (Every render you get a new copy of saveStore function. 
+    Each copy captures the current value of todos. 
+    Your listener has a copy which was created on the first render with todos = [])
+    https://stackoverflow.com/questions/55326406/react-hooks-value-is-not-accessible-in-event-listener-function
+    */
+  useEffect(() => {
+    window.addEventListener("beforeunload", saveStore);
+    return () => {
+      window.removeEventListener("beforeunload", saveStore);
+    };
+  }, [todos]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <section className="app">
+      <Header />
+      <TodoList />
+      <Footer />
+    </section>
   );
 }
 

@@ -1,0 +1,104 @@
+.li {
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ebbbbb;
+
+  label {
+    padding: 15px 0 15px 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    line-height: 1em;
+    transition: color 0.4s;
+    background-image: url(data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23af2f2f5c%22%20stroke-width%3D%223%22/%3E%3C/svg%3E);
+    background-repeat: no-repeat;
+    background-position: center left;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  &.completed .textarea {
+    color: #d9d9d9;
+    text-decoration: line-through;
+  }
+
+  &:hover .destroy {
+    opacity: 1;
+  }
+}
+
+.view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.time {
+  font-size: 13px;
+  margin-top: 4px;
+}
+.toggle {
+  text-align: center;
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.toggle:checked + label {
+  background-image: url(data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E);
+}
+
+.destroy {
+  display: block;
+  opacity: 0;
+  margin: auto 8px;
+  font-size: 30px;
+  color: #cc9a9a;
+  transition: 0.5s ease-out;
+  &::after {
+    content: "×";
+  }
+
+  &:hover {
+    color: #af5b5e;
+  }
+}
+
+.text {
+  padding: 0;
+}
+
+.edit {
+  display: block;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  color: #4d4d4d;
+  line-height: 1em;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.textarea {
+  overflow: hidden;
+  padding: 0;
+  font-style: inherit;
+  resize: none;
+  font-family: inherit;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .toggle {
+    height: 40px;
+    background: none;
+  }
+}

@@ -1,0 +1,52 @@
+.section {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+
+.toggle {
+  text-align: center;
+  border: none;
+  opacity: 0;
+  position: absolute;
+}
+
+.toggle + label {
+  width: 60px;
+  height: 34px;
+  font-size: 0;
+  position: absolute;
+  top: -52px;
+  left: -13px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+
+  &:before {
+    content: "❯";
+    font-size: 22px;
+    color: #e6e6e6;
+    padding: 10px 27px 10px 27px;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+}
+
+.toggle:hover + label:before {
+  color: #b4b4b4;
+}
+
+.toggle:checked + label:before {
+  color: #737373;
+}
+
+.ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .toggle {
+    background: none;
+  }
+}
