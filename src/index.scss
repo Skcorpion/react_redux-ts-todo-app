@@ -62,3 +62,8 @@ a {
   outline-color: rgb(180, 180, 180);
 }
 
+@media (max-width: 600px) {
+  .input {
+    font-size: 18px;
+  }
+}

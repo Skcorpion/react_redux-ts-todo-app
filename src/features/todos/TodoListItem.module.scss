@@ -33,7 +33,6 @@
   justify-content: space-between;
 }
 
-
 .time {
   font-size: 13px;
   margin-top: 4px;
@@ -79,7 +78,7 @@
 
 .edit {
   display: block;
-  font-size: 24px;
+  font-size: inherit;
   border: none;
   outline: none;
   color: #4d4d4d;
@@ -100,5 +99,21 @@
   .toggle {
     height: 40px;
     background: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .li {
+    font-size: 18px;
+
+    label {
+      padding-left: 40px;
+      background-size: 30px;
+    }
+  }
+
+  .toggle {
+    height: 30px;
+    width: 30px;
   }
 }
